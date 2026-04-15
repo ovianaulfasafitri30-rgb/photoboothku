@@ -1,0 +1,153 @@
+const video = document.getElementById("video");
+const canvas = document.getElementById("canvas");
+const countdown = document.getElementById("countdown");
+const result = document.getElementById("result");
+const downloadBtn = document.getElementById("downloadBtn");
+
+let photos = [];
+
+// akses kamera
+navigator.mediaDevices.getUserMedia({ video: true })
+  .then(stream => {
+    video.srcObject = stream;
+  });
+
+// fungsi countdown
+function startPhotobooth() {
+  photos = [];
+  result.innerHTML = "";
+  downloadBtn.style.display = "none";
+  takePhotoSequence(3);
+}
+
+function takePhotoSequence(count) {
+  if (count === 0) {
+    showResult();
+    return;
+  }
+
+  let time = 3;
+  countdown.innerText = time;
+
+  let interval = setInterval(() => {
+    time--;
+    countdown.innerText = time;
+
+    if (time === 0) {
+      clearInterval(interval);
+      capturePhoto();
+      setTimeout(() => {
+        takePhotoSequence(count - 1);
+      }, 1000);
+   const video = document.getElementById("video");
+const canvas = document.getElementById("canvas");
+const countdown = document.getElementById("countdown");
+const result = document.getElementById("result");
+const downloadBtn = document.getElementById("downloadBtn");
+
+let photos = [];
+
+// akses kamera
+navigator.mediaDevices.getUserMedia({ video: true })
+  .then(stream => {
+    video.srcObject = stream;
+  });
+
+// fungsi countdown
+function startPhotobooth() {
+  photos = [];
+  result.innerHTML = "";
+  downloadBtn.style.display = "none";
+  takePhotoSequence(3);
+}
+
+function takePhotoSequence(count) {
+  if (count === 0) {
+    showResult();
+    return;
+  }
+
+  let time = 3;
+  countdown.innerText = time;
+
+  let interval = setInterval(() => {
+    time--;
+    countdown.innerText = time;
+
+    if (time === 0) {
+      clearInterval(interval);
+      capturePhoto();
+      setTimeout(() => {
+        takePhotoSequence(count - 1);
+      }, 1000);
+    }
+  }, 1000);
+}
+
+// ambil foto
+function capturePhoto() {
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  canvas.getContext("2d").drawImage(video, 0, 0);
+  photos.push(canvas.toDataURL("image/png"));
+}
+
+// tampilkan hasil
+function showResult() {
+  countdown.innerText = "";
+
+  let strip = document.createElement("div");
+  strip.className = "photo-strip";
+
+  photos.forEach(photo => {
+    let img = document.createElement("img");
+    img.src = photo;
+    strip.appendChild(img);
+  });
+
+  result.appendChild(strip);
+
+  downloadBtn.style.display = "block";
+
+  downloadBtn.onclick = () => {
+    let link = document.createElement("a");
+    link.download = "photobooth.png";
+    link.href = photos[photos.length - 1];
+    link.click();
+  };
+}}
+  }, 1000);
+}
+
+// ambil foto
+function capturePhoto() {
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+  canvas.getContext("2d").drawImage(video, 0, 0);
+  photos.push(canvas.toDataURL("image/png"));
+}
+
+// tampilkan hasil
+function showResult() {
+  countdown.innerText = "";
+
+  let strip = document.createElement("div");
+  strip.className = "photo-strip";
+
+  photos.forEach(photo => {
+    let img = document.createElement("img");
+    img.src = photo;
+    strip.appendChild(img);
+  });
+
+  result.appendChild(strip);
+
+  downloadBtn.style.display = "block";
+
+  downloadBtn.onclick = () => {
+    let link = document.createElement("a");
+    link.download = "photobooth.png";
+    link.href = photos[photos.length - 1];
+    link.click();
+  };
+}
